@@ -6,6 +6,9 @@ on:
   pull_request:
     branches:
       - dev
+  workflow_dispatch:
+    branches:
+      - dev
       
 jobs:
   build-ios:
