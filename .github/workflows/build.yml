@@ -97,3 +97,18 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create tag
+        run: |
+          TAG="v$(date +%Y.%m.%d-%H%M%S)"
+          git tag $TAG
+          git push origin $TAG
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/**/*
+          draft: false
+          generate_release_notes: true
+          tag_name: ${{ env.TAG }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
